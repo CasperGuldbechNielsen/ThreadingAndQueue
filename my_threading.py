@@ -1,17 +1,16 @@
 import threading
 import time
-import my_queue
 
 
 class MyThreads(threading.Thread):
-    def __init__(self, thread_id, thread_name, delay, read_or_write, queue_name, q):
+    def __init__(self, thread_id, thread_name, delay, read_or_write, queue_name, queue_manager):
         threading.Thread.__init__(self)
         self.thread_id = thread_id
         self.thread_name = thread_name
         self.thread_delay = delay
         self.read_or_write = read_or_write
         self.queue_name = queue_name
-        self.q = q
+        self.q = queue_manager
 
     def run(self):
         print("Starting thread " + self.thread_name)
