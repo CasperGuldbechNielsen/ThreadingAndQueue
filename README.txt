@@ -1,3 +1,4 @@
+1. XML formats for each individual component:
 <xmldoc>
 	<component value="rotor">
 		<value="int 0-360"/>
@@ -16,10 +17,10 @@
 	</component>
 </xmldoc>
 
-
-script potentiometer (rotering)---------\					 	       /-------Blæser ændrer retning
-					 \						      /
-script temperatur (blæser)----------------|--Mainscript-->LoadToQueue-->Logic-->LoadOnQueue--|---------Blæser startes
-					 /						      \
-script potentiometer (blæser rpm)-------/					   	       \-------Blæser hastighed reguleres
+2. General idea:
+script rotate---\					 	                               /--fan change direction
+			     \						                              /
+script temp-------|--Mainscript-->LoadToQueue-->Logic-->LoadOnQueue--|----fan start
+		         /						                              \
+script fanRPM---/					   	                               \--fan rpm change
 
