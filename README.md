@@ -22,10 +22,10 @@
 ```
 
 ## General idea:
-
+```
 script rotate---\                                                      /--fan change direction
                  \                                                    /
 script temp-------|--Mainscript-->LoadToQueue-->Logic-->LoadOnQueue--|----fan start
                  /                                                    \
 script fanRPM---/                                                      \--fan rpm change
-
+```
