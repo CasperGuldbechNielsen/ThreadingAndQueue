@@ -1,7 +1,5 @@
-import xmlFormatForQueues as Xml
 import threading
 import queue as Q
-import time
 
 
 class Logic(threading.Thread):
@@ -9,7 +7,6 @@ class Logic(threading.Thread):
     def __init__(self, qman):
         threading.Thread.__init__(self)
         self.threadName = "LoadInputQueueThread"
-        form = Xml.unParsedValueFormat
         self.q_in_name = "inputQueue"
         self.qman = qman
         self.msg = None

@@ -1,15 +1,10 @@
-import xmlFormatForQueues as Xml
 import threading
-import queue_manager as queue
-import time
 
 
 class PotentioReader(threading.Thread):
 
     def __init__(self, qman):
         threading.Thread.__init__(self)
-        self.threadName = "LoadInputQueueThread"
-        form = Xml.unParsedValueFormat
         self.q_name = "inputQueue"
         self.qman = qman
 
