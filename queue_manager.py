@@ -14,7 +14,6 @@ class QueueManager:
 
     def load_queue(self, load_value, q_name):
         self.get_queue(q_name).put(load_value)
-        print("\n\nLoaded message: \n{0} \non {1}".format(load_value, q_name))
 
     def read_queue(self, q_name):
         return self.get_queue(q_name).get()
