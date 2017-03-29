@@ -21,6 +21,7 @@ class FanRotate(threading.Thread):
             GPIO.setup(pin, GPIO.OUT)
             GPIO.output(pin, False)
             self.Seq = []
+
         for x in range(0, 8):
             self.Seq.append([[1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1]])
 
