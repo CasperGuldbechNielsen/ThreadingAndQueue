@@ -1,7 +1,7 @@
 import threading
 import queue as Q
 import sys
-import RPi.GPIO as GPI
+import RPi.GPIO as GPIO
 
 
 class FanRotate(threading.Thread):
@@ -66,4 +66,3 @@ class FanRotate(threading.Thread):
         if (self.StepCounter < 0):
             self.StepCounter = self.StepCount + self.StepDir
             self.StepDir = 0
-        print("\n\nRemoved message: \n{0} \nfrom {1}".format(msg, self.q_name))
