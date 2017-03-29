@@ -1,6 +1,7 @@
 import threading
 from threading import Event
 import queue as Q
+import time
 import sys
 import RPi.GPIO as GPIO
 
@@ -69,6 +70,7 @@ class FanRotate(threading.Thread):
                         GPIO.output(xpin, False)
 
                 self.StepCounter += self.StepDir
+                time.sleep(0.001)
 
                 if (self.StepCounter >= self.StepCount):
                     self.StepCounter = 0
