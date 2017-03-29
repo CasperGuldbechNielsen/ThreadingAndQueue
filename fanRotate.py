@@ -19,7 +19,8 @@ class FanRotate(threading.Thread):
         for pin in self.StepPins:
             GPIO.setup(pin, GPIO.OUT)
             GPIO.output(pin, False)
-            self.Seq = []
+
+        self.Seq = []
 
         for x in range(0, 8):
             self.Seq.append([1, 0, 0, 1])
@@ -30,8 +31,6 @@ class FanRotate(threading.Thread):
             self.Seq.append([0, 0, 1, 0])
             self.Seq.append([0, 0, 1, 1])
             self.Seq.append([0, 0, 0, 1])
-
-        print(self.Seq)
 
         self.StepCount = len(self.Seq)
         self.StepDir = 0
@@ -60,6 +59,7 @@ class FanRotate(threading.Thread):
                 self.StepDir = -1
             else:
                 self.StepDir = 0
+
             if (self.StepDir != 0):
                 for pin in range(0, 4):
                     xpin = self.StepPins[pin]
