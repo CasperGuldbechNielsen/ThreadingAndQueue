@@ -4,7 +4,7 @@
 ```xml
 <xmldoc>
 	<component value="rotor">
-		<value="int (from 0 to 360)"/>
+		<value="int (from -∞ to +∞)"/>
 	</component>
 </xmldoc>
 
