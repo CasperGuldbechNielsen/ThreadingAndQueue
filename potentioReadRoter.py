@@ -27,7 +27,8 @@ class PotentioReader(threading.Thread):
     def load(self):
         while (True):
             load_value = self.read()
-            self.qman.load_queue(load_value, self.q_name)
+            if (str(load_value).__contains__("value='1'")) or (str(load_value).__contains__("value='-1'")):
+                self.qman.load_queue(load_value, self.q_name)
 
     def read(self):
         clkState = GPIO.input(self.clk)
@@ -37,7 +38,6 @@ class PotentioReader(threading.Thread):
                 self.counter += 1
             else:
                 self.counter -= 1
-            print(self.counter)
             self.clkLastState = clkState
 
         if (self.counter > self.oldCounter):

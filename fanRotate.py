@@ -1,4 +1,5 @@
 import threading
+from threading import Event
 import queue as Q
 import sys
 import RPi.GPIO as GPIO
@@ -10,6 +11,7 @@ class FanRotate(threading.Thread):
         threading.Thread.__init__(self)
         self.q_name = "fanRotateQueue"
         self.qman = qman
+        self.ready = Event()
 
         GPIO.setmode(GPIO.BCM)
         self.StepPins = [6, 13, 19, 26]
@@ -19,14 +21,7 @@ class FanRotate(threading.Thread):
             GPIO.setup(pin, GPIO.OUT)
             GPIO.output(pin, False)
 
-        self.Seq = [[1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1],
-               [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1]]
+        self.Seq = [[1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1]]
 
         self.StepCount = len(self.Seq)
         self.StepDir = 0
@@ -40,6 +35,7 @@ class FanRotate(threading.Thread):
             try:
                 msg = self.qman.read_queue(self.q_name)
                 self.rotate(msg)
+                self.ready.wait()
             except Q.Empty:
                 print("Queue {0} is empty..".format(self.q_name))
 
@@ -66,3 +62,5 @@ class FanRotate(threading.Thread):
         if (self.StepCounter < 0):
             self.StepCounter = self.StepCount + self.StepDir
             self.StepDir = 0
+
+        self.ready.set()
