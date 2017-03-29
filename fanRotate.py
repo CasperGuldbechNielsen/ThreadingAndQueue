@@ -24,6 +24,8 @@ class FanRotate(threading.Thread):
         for x in range(0, 8):
             self.Seq.append([[1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1], [0, 0, 0, 1]])
 
+        print("\n{0}".format(self.Seq))
+
         self.StepCount = len(self.Seq)
         self.StepDir = 0
         self.StepCounter = 0
@@ -61,13 +63,13 @@ class FanRotate(threading.Thread):
 
                 self.StepCounter += self.StepDir
 
-            if (self.StepCounter >= self.StepCount):
-                self.StepCounter = 0
-                self.StepDir = 0
-                rotating = False
-            if (self.StepCounter < 0):
-                self.StepCounter = self.StepCount + self.StepDir
-                self.StepDir = 0
-                rotating = False
+                if (self.StepCounter >= self.StepCount):
+                    self.StepCounter = 0
+                    self.StepDir = 0
+                    rotating = False
+                if (self.StepCounter < 0):
+                    self.StepCounter = self.StepCount + self.StepDir
+                    self.StepDir = 0
+                    rotating = False
 
         self.ready.set()

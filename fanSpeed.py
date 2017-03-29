@@ -16,7 +16,7 @@ class FanSpeed(threading.Thread):
         while (True):
             try:
                 msg = self.qman.read_queue(self.q_name)
-                self.rotate(msg)
+                #self.rotate(msg)
             except Q.Empty:
                 print("Queue {0} is empty..".format(self.q_name))
 
