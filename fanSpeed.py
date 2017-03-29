@@ -22,4 +22,4 @@ class FanSpeed(threading.Thread):
 
     def rotate(self, msg):
         # Have logic to rotate here...
-        print("\n\nRemoved message: \n{0} \nfrom {1}".format(msg, self.q_name))
+        print("\n")
